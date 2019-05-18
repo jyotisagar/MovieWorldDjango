@@ -11,5 +11,5 @@ urlpatterns = [
     path('<int:id>/', views.details, name='detail'),
 
     # /music/1/favorite
-    path('<int:id>/favorite/', views.favorite, name='favorite')
+    path('<int:id>/favorite', views.favorite, name='favorite')
 ]

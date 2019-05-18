@@ -4,7 +4,7 @@
 
 {% if error_msg %}
     <p><strong>{{error_msg}}</strong></p>
-{% endif %}
+{% else %}
 <form action="{% url 'music:favorite' album.id %}" method="post">
     {% csrf_token %}
     {% for song in album.song_set.all %}
@@ -19,7 +19,7 @@
     <input type="submit" value="Favorite">
 </form>
 
-
+{% endif %}
 
 <!--<ul>-->
     <!--{% for song in album.song_set.all %}-->
