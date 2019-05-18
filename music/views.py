@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
 from .models import Album
 # from django.template import loader
-from django.shortcuts import render
-from django.http import Http404
+from django.shortcuts import render, get_object_or_404
+# from django.http import Http404
 
 def index(request):
     all_albums = Album.objects.all()
@@ -14,9 +14,12 @@ def index(request):
 
 
 def details(request, id):
-    try:
-        album = Album.objects.get(pk=id)
-    except Album.DoesNotExist:
-        raise Http404('Album does not exist!')
+    album = get_object_or_404(Album, pk=id)
     return render(request, 'music/detail.html', {'album': album})
+
+    # try:
+    #     album = Album.objects.get(pk=id)
+    # except Album.DoesNotExist:
+    #     raise Http404('Album does not exist!')
+    # return render(request, 'music/detail.html', {'album': album})
 
