@@ -3,10 +3,12 @@
    <ul>
     {% for album in all_albums%}
     <li>
-        <a href="/music/{{album.id}}/">{{album.album_title}}</a>
+        <a href="{% url 'detail' album.id %}">{{album.album_title}}</a>
     </li>
     {% endfor %}
    </ul>
 {% else%}
   <h3>No Album exists!</h3>
 {% endif %}
+ 
+<!--<a href="/music/{{album.id}}/">{{album.album_title}}</a>-->
