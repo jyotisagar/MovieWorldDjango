@@ -1,31 +1,26 @@
+{% extends 'music/base.html' %}
+{% block title %} Album Details {% endblock %}
 {% load static %}
+{% block body %}
+    <img src="{% static 'music/images/bird.jpg' %}">
+    <h2>Album Title: {{album.album_title}}</h2>
+    <h3>Album artist: {{album.artist}}</h3>
 
-<img src="{% static 'music/images/bird.jpg' %}">
-<h2>Album Title: {{album.album_title}}</h2>
-<h3>Album artist: {{album.artist}}</h3>
-
-{% if error_msg %}
-    <p><strong>{{error_msg}}</strong></p>
-{% else %}
-<form action="{% url 'music:favorite' album.id %}" method="post">
-    {% csrf_token %}
-    {% for song in album.song_set.all %}
-        <input type="radio" id="song{{ forloop.counter }}" name="song" value="{{song.id}}"/>
-        <label for="song{{ forloop.counter }}">
-            {{song.song_title}}
-            {% if song.is_favorite %}
-                <img src="{% static 'music/images/star.png' %}" alt="my image"/>
-            {% endif %}
-        </label><br>
-    {% endfor %}
-    <input type="submit" value="Favorite">
-</form>
-{% endif %}
-
-<!--<ul>-->
-    <!--{% for song in album.song_set.all %}-->
-    <!--<li>-->
-        <!--Song Title: {{song.song_title}} &#45;&#45; File Type: {{song.file_type}}-->
-    <!--</li>-->
-    <!--{% endfor %}-->
-<!--</ul>-->
+    {% if error_msg %}
+        <p><strong>{{error_msg}}</strong></p>
+    {% else %}
+    <form action="{% url 'music:favorite' album.id %}" method="post">
+        {% csrf_token %}
+        {% for song in album.song_set.all %}
+            <input type="radio" id="song{{ forloop.counter }}" name="song" value="{{song.id}}"/>
+            <label for="song{{ forloop.counter }}">
+                {{song.song_title}}
+                {% if song.is_favorite %}
+                    <img src="{% static 'music/images/star.png' %}" alt="my image"/>
+                {% endif %}
+            </label><br>
+        {% endfor %}
+        <input type="submit" value="Favorite">
+    </form>
+    {% endif %}
+{% endblock %}
