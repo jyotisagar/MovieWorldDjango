@@ -1,4 +1,6 @@
-<img src="{{album.album_logo}}">
+{% load static %}
+
+<img src="{% static 'music/images/bird.jpg' %}">
 <h2>Album Title: {{album.album_title}}</h2>
 <h3>Album artist: {{album.artist}}</h3>
 
@@ -12,13 +14,12 @@
         <label for="song{{ forloop.counter }}">
             {{song.song_title}}
             {% if song.is_favorite %}
-                <img src="http://i.imgur.com/b9b13Rd.png"/>
+                <img src="{% static 'music/images/star.png' %}" alt="my image"/>
             {% endif %}
         </label><br>
     {% endfor %}
     <input type="submit" value="Favorite">
 </form>
-
 {% endif %}
 
 <!--<ul>-->
