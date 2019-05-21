@@ -2,7 +2,8 @@
 {% block title %} Album Details {% endblock %}
 {% load static %}
 {% block body %}
-    <img src="{% static 'music/images/bird.jpg' %}">
+    <!--<img src="{% static 'music/images/bird.jpg' %}">-->
+    <img src="{{album.album_logo.url}}"/>
     <h2>Album Title: {{album.album_title}}</h2>
     <h3>Album artist: {{album.artist}}</h3>
 
