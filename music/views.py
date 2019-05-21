@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.views import generic
-from django.views.generic import views
+from django.views.generic import TemplateView
 from .forms import UserForm
 
 
@@ -37,3 +37,23 @@ class AlbumDelete(DeleteView):
     success_url = reverse_lazy('music:index')
 
 
+class  UserFormView(TemplateView):
+    form_class = UserForm
+    template_name = 'music/register_form.html'
+
+    # display blank form
+    def get(self, request):
+      form = self.form_class(None)
+      return render(request, self.template_name, {'form': form})
+
+
+    # process form data
+    def post(self, request):
+      form = self.form_class(request.POST)
+      if form.is_valid():
+          user = form.save(commit=False)
+          # clean normalized data
+          username = form.cleaned_data['username']
+          password = form.cleaned_data['password']
+          user.set_password(password)
+          user.save()
