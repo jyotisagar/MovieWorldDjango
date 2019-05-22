@@ -7,6 +7,8 @@ urlpatterns = [
     # /music/
     path('', views.IndexView.as_view(), name='index'),
 
+    path('register/', views.UserFormView.as_view(), name='register'),
+
     # /music/1
     path('<int:pk>/', views.DetailView.as_view(), name='detail'),
 
@@ -18,5 +20,7 @@ urlpatterns = [
 
     # music/album/2/delete
     path('album/<int:pk>/delete/', views.AlbumDelete.as_view(), name='album-delete')
+
+
 
 ]

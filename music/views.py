@@ -37,7 +37,7 @@ class AlbumDelete(DeleteView):
     success_url = reverse_lazy('music:index')
 
 
-class  UserFormView(TemplateView):
+class UserFormView(TemplateView):
     form_class = UserForm
     template_name = 'music/register_form.html'
 
@@ -46,14 +46,23 @@ class  UserFormView(TemplateView):
       form = self.form_class(None)
       return render(request, self.template_name, {'form': form})
 
-
     # process form data
     def post(self, request):
       form = self.form_class(request.POST)
       if form.is_valid():
-          user = form.save(commit=False)
-          # clean normalized data
-          username = form.cleaned_data['username']
-          password = form.cleaned_data['password']
-          user.set_password(password)
-          user.save()
+        user = form.save(commit=False)
+
+    # clean normalized data
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        user.set_password(password)
+        user.save()
+
+    # return User objects if credentials are correct
+        user = authenticate(username=username, password=password)
+        if user is not None:
+          if user.is_active:
+            login(request, user)
+            return redirect('music:index')
+
+      return render(request, self.template_name, {'form': form})
